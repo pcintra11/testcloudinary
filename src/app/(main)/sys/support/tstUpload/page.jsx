@@ -27,7 +27,7 @@ export default function Home() {
     updateUrl(result?.info?.secure_url);
   }
 
-  
+
   return (
     <>
       <Head>
@@ -39,7 +39,7 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.container}>
           <h1 className={styles.title}>
-            Next.js &amp; Cloudinary Upload Widget
+            Next.js &amp; Cloudinary Upload Widget v3
           </h1>
         </div>
 
