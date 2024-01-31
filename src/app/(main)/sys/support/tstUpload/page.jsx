@@ -27,6 +27,7 @@ export default function Home() {
     updateUrl(result?.info?.secure_url);
   }
 
+  
   return (
     <>
       <Head>
