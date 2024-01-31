@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Head from 'next/head';
 
 import UploadWidget from './UploadWidget';
+import { dummy } from './bigScript';
 
 //import styles from '../styles/Home.module.css';
 const styles = {};
@@ -26,7 +27,8 @@ export default function Home() {
     }
     updateUrl(result?.info?.secure_url);
   }
-
+  
+  dummy();
 
   return (
     <>
@@ -39,7 +41,7 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.container}>
           <h1 className={styles.title}>
-            Next.js &amp; Cloudinary Upload Widget v4 (middleware)
+            Next.js &amp; Cloudinary Upload Widget v5 (bigScript)
           </h1>
         </div>
 

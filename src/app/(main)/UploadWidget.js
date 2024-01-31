@@ -1,7 +1,7 @@
 import Script from 'next/script';
 import {useEffect, useRef} from "react";
 
-import { Env } from '../../../../../appBase/commom/envs';
+import { Env } from '../../appBase/commom/envs';
 
 let cloudinary;
 
