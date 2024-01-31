@@ -39,7 +39,7 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.container}>
           <h1 className={styles.title}>
-            Next.js &amp; Cloudinary Upload Widget v3
+            Next.js &amp; Cloudinary Upload Widget v4 (middleware)
           </h1>
         </div>
 
