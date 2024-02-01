@@ -55,7 +55,7 @@ const UploadWidget = ({ children, onUpload }) => {
       })
     }).then(r => r.json())
       .then(({ value }) => {
-        console.log({ value });
+        console.log('generateSignature', value.signature);
         callback(value.signature);
       });
   }
@@ -90,7 +90,8 @@ const UploadWidget = ({ children, onUpload }) => {
 
     return cloudinary?.createUploadWidget(options,
       function (error, result) {
-        console.log('createUploadWidget cb', { error, result });
+        if (error != null) console.log('createUploadWidget cb error', error);
+        else console.log('createUploadWidget cb event', result.event);
         // The callback is a bit more chatty than failed or success so
         // only trigger when one of those are the case. You can additionally
         // create a separate handler such as onEvent and trigger it on

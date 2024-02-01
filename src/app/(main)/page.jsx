@@ -25,7 +25,8 @@ export default function Home() {
    */
 
   function handleOnUpload(error, result, widget) {
-    console.log('handleOnUpload cb', { error, result, widget });
+    if (error != null) console.log('handleOnUpload cb error', error);
+    else console.log('handleOnUpload cb event', result.event);
     if ( error ) {
       updateError(error);
       widget.close({
@@ -37,13 +38,13 @@ export default function Home() {
   }
   
   dummy1();
-  dummy2();
-  dummy3();
-  dummy4();
-  dummy5();
-  dummy6();
-  dummy7();
-  dummy8();
+  // dummy2();
+  // dummy3();
+  // dummy4();
+  // dummy5();
+  // dummy6();
+  // dummy7();
+  // dummy8();
 
   return (
     <>
@@ -56,7 +57,7 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.container}>
           <h1 className={styles.title}>
-            Next.js &amp; Cloudinary Upload Widget v7 (bigScripts + logs)
+            Next.js &amp; Cloudinary Upload Widget v8 (bigScripts + logs + same as vizinet)
           </h1>
         </div>
 

@@ -1,5 +1,8 @@
+import { dummy7 } from "./bigScript7";
+
 export function dummy6(code?: string) {
-  console.log('dummy6');
+  //console.log('dummy6');
+  dummy7();
   if (code !== '123') return;
   const array = ['a'];
   for (let index = 0; index < array.length; index++) { const element = array[index]; }
