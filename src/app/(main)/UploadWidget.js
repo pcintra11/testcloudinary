@@ -1,5 +1,5 @@
 import Script from 'next/script';
-import {useEffect, useRef} from "react";
+import { useEffect, useRef } from "react";
 
 import { Env } from '../../appBase/commom/envs';
 
@@ -9,7 +9,7 @@ const UploadWidget = ({ children, onUpload }) => {
   const widget = useRef();
 
   useEffect(() => {
-
+    console.log('effect');
     return () => {
       widget.current?.destroy();
       widget.current = undefined;
@@ -22,7 +22,8 @@ const UploadWidget = ({ children, onUpload }) => {
    */
 
   function handleOnLoad() {
-    if ( !cloudinary ) {
+    console.log('handleOnLoad');
+    if (!cloudinary) {
       cloudinary = window.cloudinary;
     }
 
@@ -31,8 +32,10 @@ const UploadWidget = ({ children, onUpload }) => {
     // setTimeout: https://caniuse.com/requestidlecallback
 
     function onIdle() {
-      if ( !widget.current ) {
+      if (!widget.current) {
+        console.log('createWidget start');
         widget.current = createWidget();
+        console.log('createWidget end');
       }
     }
 
@@ -44,7 +47,7 @@ const UploadWidget = ({ children, onUpload }) => {
    * @description Makes a request to an endpoint to sign Cloudinary parameters as part of widget creation
    */
 
-  function generateSignature( callback, paramsToSign ) {
+  function generateSignature(callback, paramsToSign) {
     fetch(`/apis/appBase/cloudinarySignature`, {
       method: 'POST',
       body: JSON.stringify({
@@ -52,7 +55,7 @@ const UploadWidget = ({ children, onUpload }) => {
       })
     }).then(r => r.json())
       .then(({ value }) => {
-        console.log({value});
+        console.log({ value });
         callback(value.signature);
       });
   }
@@ -70,7 +73,7 @@ const UploadWidget = ({ children, onUpload }) => {
 
     const cloudName = 'pcintra';
     const apiKey = Env('cloudinaryApiKey');
-  
+
     if (!cloudName || !apiKey) {
       console.warn(`Kindly ensure you have the cloudName and apiKey 
       setup in your .env file at the root of your project.`)
@@ -87,6 +90,7 @@ const UploadWidget = ({ children, onUpload }) => {
 
     return cloudinary?.createUploadWidget(options,
       function (error, result) {
+        console.log('createUploadWidget cb', { error, result });
         // The callback is a bit more chatty than failed or success so
         // only trigger when one of those are the case. You can additionally
         // create a separate handler such as onEvent and trigger it on
@@ -104,7 +108,7 @@ const UploadWidget = ({ children, onUpload }) => {
    */
 
   function open() {
-    if ( !widget.current ) {
+    if (!widget.current) {
       widget.current = createWidget();
     }
 
