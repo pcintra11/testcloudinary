@@ -4,7 +4,10 @@ import { useState } from 'react';
 import Head from 'next/head';
 
 import UploadWidget from './UploadWidget';
-import { dummy } from './bigScript';
+import { dummy1 } from './bigScript1';
+import { dummy2 } from './bigScript2';
+import { dummy3 } from './bigScript3';
+import { dummy4 } from './bigScript4';
 
 //import styles from '../styles/Home.module.css';
 const styles = {};
@@ -28,7 +31,10 @@ export default function Home() {
     updateUrl(result?.info?.secure_url);
   }
   
-  dummy();
+  dummy1();
+  dummy2();
+  dummy3();
+  dummy4();
 
   return (
     <>
@@ -41,7 +47,7 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.container}>
           <h1 className={styles.title}>
-            Next.js &amp; Cloudinary Upload Widget v5 (bigScript)
+            Next.js &amp; Cloudinary Upload Widget v6 (bigScripts)
           </h1>
         </div>
 
