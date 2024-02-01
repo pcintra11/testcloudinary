@@ -4,16 +4,6 @@ import { useState } from 'react';
 import Head from 'next/head';
 
 import UploadWidget from './UploadWidget';
-import { dummy1 } from './bigScript1';
-import { dummy2 } from './bigScript2';
-import { dummy3 } from './bigScript3';
-import { dummy4 } from './bigScript4';
-import { dummy5 } from './bigScript5';
-import { dummy6 } from './bigScript6';
-import { dummy7 } from './bigScript7';
-import { dummy8 } from './bigScript8';
-
-//import styles from '../styles/Home.module.css';
 const styles = {};
 
 export default function Home() {
@@ -37,15 +27,6 @@ export default function Home() {
     updateUrl(result?.info?.secure_url);
   }
   
-  dummy1();
-  // dummy2();
-  // dummy3();
-  // dummy4();
-  // dummy5();
-  // dummy6();
-  // dummy7();
-  // dummy8();
-
   return (
     <>
       <Head>
@@ -57,7 +38,7 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.container}>
           <h1 className={styles.title}>
-            Next.js &amp; Cloudinary Upload Widget v8 (bigScripts + logs + same as vizinet)
+            Next.js &amp; Cloudinary Upload Widget v7 (same page in two apps)
           </h1>
         </div>
 

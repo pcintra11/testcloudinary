@@ -21,8 +21,13 @@ const UploadWidget = ({ children, onUpload }) => {
    * @description Stores the Cloudinary window instance to a ref when the widget script loads
    */
 
-  function handleOnLoad() {
-    console.log('handleOnLoad');
+  function handleOnLoad(scriptOk) {
+    console.log('handleOnLoad, script ready:', scriptOk);
+    if (!scriptOk) {
+      console.log('erro na carga do script cloudinary');
+      return;
+    }
+
     if (!cloudinary) {
       cloudinary = window.cloudinary;
     }
@@ -109,17 +114,21 @@ const UploadWidget = ({ children, onUpload }) => {
    */
 
   function open() {
+    console.log('open');
     if (!widget.current) {
       widget.current = createWidget();
     }
-
     widget.current && widget.current.open();
   }
 
   return (
     <>
       {children({ cloudinary, widget, open })}
-      <Script id="cloudinary" src="https://widget.cloudinary.com/v2.0/global/all.js" onLoad={handleOnLoad} />
+      <Script id="cloudinary" src="https://widget.cloudinary.com/v2.0/global/all.js"
+        onLoad={() => console.log('cloudinary script load')}
+        onReady={() => handleOnLoad(true)}
+        onError={() => handleOnLoad(false)}
+      />
     </>
   )
 }
