@@ -1,15 +1,19 @@
 import Script from 'next/script';
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
-import { Env } from '../../appBase/commom/envs';
+//import { generateSignature } from '@/techno_cloudinary/client/util';
+import { clc, generateSignature } from '../complement';
+
+import { Env } from '../envs';
+// import { clc } from '@/libs/client/util';
 
 let cloudinary;
 
-const UploadWidget = ({ children, onUpload }) => {
+const UploadWidget = ({ children, onUpload, params }) => {
   const widget = useRef();
 
   useEffect(() => {
-    console.log('effect');
+    clc('effect');
     return () => {
       widget.current?.destroy();
       widget.current = undefined;
@@ -22,9 +26,9 @@ const UploadWidget = ({ children, onUpload }) => {
    */
 
   function handleOnLoad(scriptOk) {
-    console.log('handleOnLoad, script ready:', scriptOk);
+    clc('handleOnLoad, script ready:', scriptOk);
     if (!scriptOk) {
-      console.log('erro na carga do script cloudinary');
+      clc('erro na carga do script cloudinary');
       return;
     }
 
@@ -38,31 +42,13 @@ const UploadWidget = ({ children, onUpload }) => {
 
     function onIdle() {
       if (!widget.current) {
-        console.log('createWidget start');
+        clc('createWidget start');
         widget.current = createWidget();
-        console.log('createWidget end');
+        clc('createWidget end');
       }
     }
 
     'requestIdleCallback' in window ? requestIdleCallback(onIdle) : setTimeout(onIdle, 1);
-  }
-
-  /**
-   * generateSignature
-   * @description Makes a request to an endpoint to sign Cloudinary parameters as part of widget creation
-   */
-
-  function generateSignature(callback, paramsToSign) {
-    fetch(`/apis/appBase/cloudinarySignature`, {
-      method: 'POST',
-      body: JSON.stringify({
-        paramsToSign
-      })
-    }).then(r => r.json())
-      .then(({ value }) => {
-        console.log('generateSignature', value.signature);
-        callback(value.signature);
-      });
   }
 
   /**
@@ -84,19 +70,24 @@ const UploadWidget = ({ children, onUpload }) => {
       setup in your .env file at the root of your project.`)
     }
 
+    function uploadSignature(callback, paramsToSign) {
+      generateSignature(paramsToSign)
+        .then((signature) => {
+          callback({ signature })
+        });
+    }
+
     const options = {
       cloudName, // Ex: mycloudname
       apiKey, // Ex: 1234567890
-      uploadSignature: generateSignature,
-      folder: 'testes',
-      uploadPreset: 'avatar',
-      publicId: 'file1',
+      uploadSignature,
+      ...params,
     }
 
     return cloudinary?.createUploadWidget(options,
       function (error, result) {
-        if (error != null) console.log('createUploadWidget cb error', error);
-        else console.log('createUploadWidget cb event', result.event);
+        if (error != null) clc('createUploadWidget cb error', error);
+        else clc('createUploadWidget cb event', result.event);
         // The callback is a bit more chatty than failed or success so
         // only trigger when one of those are the case. You can additionally
         // create a separate handler such as onEvent and trigger it on
@@ -112,9 +103,8 @@ const UploadWidget = ({ children, onUpload }) => {
    * open
    * @description When triggered, uses the current widget instance to open the upload modal
    */
-
   function open() {
-    console.log('open');
+    clc('open');
     if (!widget.current) {
       widget.current = createWidget();
     }
@@ -125,7 +115,7 @@ const UploadWidget = ({ children, onUpload }) => {
     <>
       {children({ cloudinary, widget, open })}
       <Script id="cloudinary" src="https://widget.cloudinary.com/v2.0/global/all.js"
-        onLoad={() => console.log('cloudinary script load')}
+        onLoad={() => clc('cloudinary script load')}
         onReady={() => handleOnLoad(true)}
         onError={() => handleOnLoad(false)}
       />

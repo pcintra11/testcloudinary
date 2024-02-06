@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
-import { EnvSvr } from '../../../../appBase/commom/envs';
+import { EnvSvr } from '../../../(main)/envs';
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,6 +13,6 @@ export async function POST(req: NextRequest) {
     );
   }
   catch (error) {
-    console.log('parm invalido');
+    console.log('parm invalido', error.message);
   }
 };
